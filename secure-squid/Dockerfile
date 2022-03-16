@@ -16,7 +16,7 @@ RUN apt-get update && \
 
 ENV TZ="Europe/Amsterdam"
 
-RUN apt install apt-transport-https lsb-release ca-certificates curl build-essentials libdev-ssl -y
+RUN apt install apt-transport-https lsb-release ca-certificates curl build-essential libssl-dev -y
 RUN apt install ca-certificates -y
 
 ADD Root-CA.crt /usr/local/share/ca-certificates/Root-CA.crt.crt
