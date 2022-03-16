@@ -27,10 +27,9 @@ ENV TZ="Europe/Amsterdam"
 
 RUN apt dist-upgrade -y
 
-RUN apt install apt-transport-https lsb-release ca-certificates curl build-essential libssl-dev -y
+RUN apt install apt-transport-https lsb-release ca-certificates curl build-essential libssl-dev gnupg2 wget -y
 ADD Root-CA.crt /usr/local/share/ca-certificates/Root-CA.crt.crt
 RUN update-ca-certificates
-RUN apt install wget curl gnupg -y
 
 ###############
 #Squid Section#
