@@ -12,6 +12,8 @@ RUN echo "deb http://nl.archive.ubuntu.com/ubuntu/ focal-proposed restricted uni
 RUN echo "deb http://nl.archive.ubuntu.com/ubuntu/ focal-backports restricted universe multiverse " >> /etc/apt/sources.list
 RUN apt-get update
 
+RUN apt install gnupg2 gnupg -y
+
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata
 RUN apt-get install keyboard-configuration -y
 RUN unlink /etc/localtime
@@ -25,7 +27,7 @@ RUN ln -fs /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
 RUN dpkg-reconfigure -f noninteractive tzdata
 ENV TZ="Europe/Amsterdam"
 
-RUN apt install gnupg2 -y
+
 RUN apt install apt-transport-https lsb-release ca-certificates curl build-essential libssl-dev wget -y
 
 ########################
