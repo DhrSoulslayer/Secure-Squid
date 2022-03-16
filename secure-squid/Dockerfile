@@ -31,6 +31,6 @@ RUN /usr/lib/squid/security_file_certgen -c -s /var/log/squid/ssl_db -M 40MB
 RUN chmod -R 777 /var/log/squid/
 RUN /usr/sbin/squid -z
 
-#I-ICAP Install
-RUN apt install i-icap -y
+#C-ICAP Install
+RUN apt install c-icap -y
 
