@@ -15,7 +15,7 @@ RUN apt install wget -y
 ########################
 #Add enviroment Root CA#
 ########################
-ADD Root-CA.crt /usr/local/share/ca-certificates/Root-CA.crt.crt
+ADD Root-CA.crt /usr/local/share/ca-certificates/Root-CA.crt
 RUN update-ca-certificates
 
 ###############
