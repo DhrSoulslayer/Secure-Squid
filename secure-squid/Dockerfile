@@ -1,34 +1,16 @@
 FROM ubuntu:20.04
 
-##########################
-#Configure apt repository#
-##########################
-RUN mv /etc/apt/sources.list /etc/apt/sources.list.origineel
-RUN touch /etc/apt/sources.list
-RUN echo "deb http://nl.archive.ubuntu.com/ubuntu/ focal main restricted universe multiverse" >> /etc/apt/sources.list
-RUN echo "deb http://nl.archive.ubuntu.com/ubuntu/ focal-security main restricted universe multiverse" >> /etc/apt/sources.list
-RUN echo "deb http://nl.archive.ubuntu.com/ubuntu/ focal-updates restricted universe multiverse " >> /etc/apt/sources.list
-RUN echo "deb http://nl.archive.ubuntu.com/ubuntu/ focal-proposed restricted universe multiverse " >> /etc/apt/sources.list
-RUN echo "deb http://nl.archive.ubuntu.com/ubuntu/ focal-backports restricted universe multiverse " >> /etc/apt/sources.list
 RUN apt-get update
-
-RUN apt install gnupg2 gnupg -y
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata
+RUN DEBIAN_FRONTEND=noninteractive apt install -yq --no-install-recommends tzdata
 RUN apt-get install keyboard-configuration -y
 RUN unlink /etc/localtime
 RUN ln -s /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
-
-####################
-#Configure Timezone#
-####################
-RUN apt-get install -yq tzdata
-RUN ln -fs /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
 RUN dpkg-reconfigure -f noninteractive tzdata
 ENV TZ="Europe/Amsterdam"
 
-
-RUN apt install apt-transport-https lsb-release ca-certificates curl build-essential libssl-dev wget -y
+RUN apt install build-essential apt-transport-https lsb-release ca-certificates curl -y
+RUN apt install ca-certificates -y
+RUN apt install wget -y
 
 ########################
 #Add enviroment Root CA#
