@@ -29,7 +29,6 @@ RUN apt-get update && apt-get install -y squid-common squid-openssl squidclient 
 #Configure Squid5
 RUN /usr/lib/squid/security_file_certgen -c -s /var/log/squid/ssl_db -M 40MB
 RUN chmod -R 777 /var/log/squid/
-RUN systemctl stop squid
 RUN mv /etc/squid/squid.conf /etc/squid/squid.conf.origineel
 ADD ./squid/squid.conf /etc/squid/squid.conf
 RUN /usr/sbin/squid -z
