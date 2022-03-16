@@ -8,7 +8,7 @@ RUN ln -s /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
 RUN dpkg-reconfigure -f noninteractive tzdata
 ENV TZ="Europe/Amsterdam"
 
-RUN apt install build-essential apt-transport-https lsb-release ca-certificates curl libdev-ssl -y
+RUN apt install build-essential apt-transport-https lsb-release ca-certificates curl libssl-dev -y
 RUN apt install ca-certificates -y
 RUN apt install wget -y
 RUN mkdir /opt/sources
