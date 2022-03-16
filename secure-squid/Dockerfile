@@ -18,15 +18,14 @@ RUN echo "deb http://nl.archive.ubuntu.com/ubuntu/ focal-proposed restricted uni
 RUN echo "deb http://nl.archive.ubuntu.com/ubuntu/ focal-backports restricted universe multiverse " >> /etc/apt/sources.list
 
 
-RUN apt-get update && \
-    apt-get install -yq tzdata && \
-    ln -fs /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime && \
-    dpkg-reconfigure -f noninteractive tzdata
+RUN apt-get update
+RUN apt-get install -yq tzdata
+RUN ln -fs /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
+RUN dpkg-reconfigure -f noninteractive tzdata
 
 ENV TZ="Europe/Amsterdam"
 
-RUN apt install apt-transport-https lsb-release ca-certificates curl build-essential libssl-dev wget -y
-RUN apt install ca-certificates -y
+RUN apt install apt-transport-https lsb-release ca-certificates curl build-essential libssl-dev wget gnupg -y
 
 ADD Root-CA.crt /usr/local/share/ca-certificates/Root-CA.crt.crt
 RUN update-ca-certificates
