@@ -11,7 +11,7 @@ ENV TZ="Europe/Amsterdam"
 RUN apt install build-essential apt-transport-https lsb-release ca-certificates curl -y
 RUN apt install ca-certificates -y
 RUN apt install wget -y
-
+RUN mkdir /opt/sources
 ########################
 #Add enviroment Root CA#
 ########################
