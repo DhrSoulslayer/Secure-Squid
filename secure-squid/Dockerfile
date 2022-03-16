@@ -6,6 +6,14 @@ RUN apt-get install keyboard-configuration -y
 RUN unlink /etc/localtime
 RUN ln -s /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
 
+####################
+#Configure Timezone#
+####################
+RUN apt-get install -yq tzdata
+RUN ln -fs /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
+RUN dpkg-reconfigure -f noninteractive tzdata
+ENV TZ="Europe/Amsterdam"
+
 ##########################
 #Configure apt repository#
 ##########################
@@ -16,18 +24,14 @@ RUN echo "deb http://nl.archive.ubuntu.com/ubuntu/ focal-security main restricte
 RUN echo "deb http://nl.archive.ubuntu.com/ubuntu/ focal-updates restricted universe multiverse " >> /etc/apt/sources.list
 RUN echo "deb http://nl.archive.ubuntu.com/ubuntu/ focal-proposed restricted universe multiverse " >> /etc/apt/sources.list
 RUN echo "deb http://nl.archive.ubuntu.com/ubuntu/ focal-backports restricted universe multiverse " >> /etc/apt/sources.list
-
-
 RUN apt-get update
-RUN apt-get install -yq tzdata
-RUN ln -fs /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
-RUN dpkg-reconfigure -f noninteractive tzdata
 
-ENV TZ="Europe/Amsterdam"
-
-RUN apt dist-upgrade -y
-
+RUN apt install gnupg -y
 RUN apt install apt-transport-https lsb-release ca-certificates curl build-essential libssl-dev wget -y
+
+########################
+#Add enviroment Root CA#
+########################
 ADD Root-CA.crt /usr/local/share/ca-certificates/Root-CA.crt.crt
 RUN update-ca-certificates
 
