@@ -16,7 +16,7 @@ services:
       container_name: "secure-squid"
       restart: always
       build:
-        context: "sercure-squid/"
+        context: "secure-squid/"
       ports:
         - "3128:3128"
       network_mode: "host"
