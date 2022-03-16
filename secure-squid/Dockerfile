@@ -19,10 +19,6 @@ RUN apt install ca-certificates -y
 ADD Root-CA.crt /usr/local/share/ca-certificates/Root-CA.crt.crt
 RUN update-ca-certificates
 
-RUN mkdir /opt
-RUN mkdir /opt/sources
-RUN mkdir /opt/sources/squidclamav
-
 ###############
 #Squid Section#
 ###############
