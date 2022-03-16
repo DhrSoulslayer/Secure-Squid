@@ -18,17 +18,15 @@ RUN mkdir /opt/sources
 ADD Root-CA.crt /usr/local/share/ca-certificates/Root-CA.crt
 RUN update-ca-certificates
 
-#SquidClamAV & C-ICAP Install
-# install clamav
+##############################
+#SquidClamAV & C-ICAP Install#
+##############################
 RUN apt-get -y install clamav
 RUN apt-get -y install clamav-daemon
-
-# install c-icap
 RUN apt-get -y install c-icap
 RUN apt-get -y install libicapapi-dev
 RUN mv /etc/c-icap/c-icap.conf /etc/c-icap/c-icap.conf.origineel
 ADD ./c-icap/c-icap.conf /etc/c-icap/c-icap.conf
-
 RUN mkdir /opt/sources/SquidClamAV
 RUN cd /opt/sources/SquidClamAV
 RUN wget https://sourceforge.net/projects/squidclamav/files/squidclamav/7.1/squidclamav-7.1.tar.gz 
