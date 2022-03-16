@@ -30,7 +30,7 @@ RUN mv /etc/c-icap/c-icap.conf /etc/c-icap/c-icap.conf.origineel
 ADD ./c-icap/c-icap.conf /etc/c-icap/c-icap.conf
 
 RUN mkdir /opt/sources/SquidClamAV
-RUN pushd /opt/sources/SquidClamAV
+RUN cd /opt/sources/SquidClamAV
 RUN wget https://sourceforge.net/projects/squidclamav/files/squidclamav/7.1/squidclamav-7.1.tar.gz && gunzip squidclamav-7.1.tar.gz && tar -xvf squidclamav-7.1.tar.gz
 RUN cd squidclamav-7.1 && ./configure --with-c-icap=/usr && make
 RUN make install
