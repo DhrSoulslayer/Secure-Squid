@@ -1,8 +1,5 @@
 FROM ubuntu:20.04
 
-ENV http_proxy http://192.168.25.98:3128
-ENV https_proxy http://192.168.25.98:3128
-
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata
 RUN apt-get install keyboard-configuration -y
