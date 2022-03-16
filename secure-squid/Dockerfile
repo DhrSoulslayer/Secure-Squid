@@ -8,7 +8,7 @@ RUN ln -s /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
 RUN dpkg-reconfigure -f noninteractive tzdata
 ENV TZ="Europe/Amsterdam"
 
-RUN apt install build-essential apt-transport-https lsb-release ca-certificates curl libssl-dev -y
+RUN apt install build-essential apt-transport-https lsb-release ca-certificates curl libdev-ssl -y
 RUN apt install ca-certificates -y
 RUN apt install wget -y
 RUN mkdir /opt/sources
@@ -34,9 +34,7 @@ RUN cd /opt/sources/SquidClamAV
 RUN wget https://sourceforge.net/projects/squidclamav/files/squidclamav/7.1/squidclamav-7.1.tar.gz 
 RUN gunzip squidclamav-7.1.tar.gz 
 RUN tar -xvf squidclamav-7.1.tar
-RUN cd squidclamav-7.1
-RUN ./configure --with-c-icap=/usr
-RUN make
+RUN cd squidclamav-7.1 && ./configure --with-c-icap=/usr && make
 RUN make install
 
 
