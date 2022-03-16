@@ -9,7 +9,7 @@ RUN ln -s /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
 ##########################
 #Configure apt repository#
 ##########################
-RUN mv /etc/apt/sources.list > /etc/apt/sources.list.origineel
+RUN mv /etc/apt/sources.list /etc/apt/sources.list.origineel
 RUN touch /etc/apt/sources.list
 RUN echo "deb http://nl.archive.ubuntu.com/ubuntu/ focal main restricted universe multiverse" >> /etc/apt/sources.list
 RUN echo "deb http://nl.archive.ubuntu.com/ubuntu/ focal-security main restricted universe multiverse" >> /etc/apt/sources.list
