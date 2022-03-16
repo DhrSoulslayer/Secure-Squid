@@ -31,7 +31,9 @@ ADD ./c-icap/c-icap.conf /etc/c-icap/c-icap.conf
 
 RUN mkdir /opt/sources/SquidClamAV
 RUN cd /opt/sources/SquidClamAV
-RUN wget https://sourceforge.net/projects/squidclamav/files/squidclamav/7.1/squidclamav-7.1.tar.gz && gunzip squidclamav-7.1.tar.gz && tar -xvf squidclamav-7.1.tar.gz
+RUN wget https://sourceforge.net/projects/squidclamav/files/squidclamav/7.1/squidclamav-7.1.tar.gz 
+RUN gunzip squidclamav-7.1.tar.gz 
+RUN tar -xvf squidclamav-7.1.tar
 RUN cd squidclamav-7.1 && ./configure --with-c-icap=/usr && make
 RUN make install
 
