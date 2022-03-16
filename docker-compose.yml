@@ -12,7 +12,7 @@ services:
       volumes:
         - /var/run/docker.sock:/var/run/docker.sock
         - /opt/portainer/data:/data
-  aras:
+  secure-squid:
       container_name: "secure-squid"
       restart: always
       build:
