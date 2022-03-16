@@ -49,10 +49,9 @@ RUN /usr/lib/squid/security_file_certgen -c -s /var/log/squid/ssl_db -M 40MB
 RUN chmod -R 777 /var/log/squid/
 RUN mv /etc/squid/squid.conf /etc/squid/squid.conf.origineel
 ADD ./squid/squid.conf /etc/squid/squid.conf
-RUN /usr/sbin/squid -z
-RUN chmod -R 777 /var/cache/squid/
 RUN mkdir /opt/squid/
 ADD Squid-SUB-CA.crt /opt/squid/squid-ca-full.pem
-
+RUN /usr/sbin/squid -z
+RUN chmod -R 777 /var/cache/squid/
 
 
