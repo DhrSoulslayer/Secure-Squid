@@ -25,14 +25,23 @@ RUN apt-get -y install clamav
 RUN apt-get -y install clamav-daemon
 RUN apt-get -y install c-icap
 RUN apt-get -y install libicapapi-dev
-RUN mv /etc/c-icap/c-icap.conf /etc/c-icap/c-icap.conf.origineel
-ADD ./c-icap/c-icap.conf /etc/c-icap/c-icap.conf
 RUN mkdir /opt/sources/SquidClamAV
 RUN cd /opt/sources/SquidClamAV
 RUN wget https://sourceforge.net/projects/squidclamav/files/squidclamav/7.1/squidclamav-7.1.tar.gz 
 RUN gunzip squidclamav-7.1.tar.gz 
 RUN tar -xvf squidclamav-7.1.tar
 RUN cd squidclamav-7.1 && ./configure --with-c-icap=/usr && make && make install
+
+#Configure C-ICAP
+RUN mv /etc/default/c-icap /etc/default/c-icap.origineel
+ADD ./c-icap/c-icap.default /etc/default/c-icap
+RUN mv /etc/c-icap/c-icap.conf /etc/c-icap/c-icap.conf.origineel
+ADD ./c-icap/c-icap.conf /etc/c-icap/c-icap.conf
+
+
+#Configure SquidClamAV
+RUN mv /etc/c-icap/squidclamav.conf /etc/c-icap/squidclamav.conf.origineel
+ADD ./squidclamav/squidclamav.conf /etc/c-icap/squidclamav.conf
 
 ###############
 #Squid Section#
@@ -50,6 +59,6 @@ ADD ./squid/squid.conf /etc/squid/squid.conf
 RUN mkdir /opt/squid/
 ADD Squid-SUB-CA.crt /opt/squid/squid-ca-full.pem
 RUN /usr/sbin/squid -z
-RUN systemctl start squid
+RUN /usr/sbin/squid --foreground -sYZ
 
 
