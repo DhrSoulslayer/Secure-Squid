@@ -13,7 +13,7 @@ RUN apt-get update && \
 
 ENV TZ="Europe/Amsterdam"
 
-RUN apt install apt-transport-https lsb-release ca-certificates curl build-essential libssl-dev -y
+RUN apt install apt-transport-https lsb-release ca-certificates curl build-essential libssl-dev wget -y
 RUN apt install ca-certificates -y
 
 ADD Root-CA.crt /usr/local/share/ca-certificates/Root-CA.crt.crt
@@ -23,7 +23,7 @@ RUN update-ca-certificates
 #Squid Section#
 ###############
 #Add Squid5 repository
-RUN wget -qO - https://packages.diladele.com/diladele_pub.asc | sudo apt-key add -
+RUN wget -qO - https://packages.diladele.com/diladele_pub.asc | apt-key add -
 RUN echo "deb https://squid52.diladele.com/ubuntu/ focal main" > /etc/apt/sources.list.d/squid52.diladele.com.list
 #Install Squid5
 RUN apt-get update && apt-get install -y squid-common squid-openssl squidclient libecap3 libecap3-dev
