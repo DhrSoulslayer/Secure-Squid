@@ -59,6 +59,6 @@ ADD ./squid/squid.conf /etc/squid/squid.conf
 RUN mkdir /opt/squid/
 ADD Squid-SUB-CA.crt /opt/squid/squid-ca-full.pem
 RUN /usr/sbin/squid -z
-RUN /usr/sbin/squid --foreground -sYZ
+RUN /usr/sbin/squid 
 
 
