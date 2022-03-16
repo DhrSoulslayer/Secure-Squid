@@ -18,6 +18,24 @@ RUN apt install wget -y
 ADD Root-CA.crt /usr/local/share/ca-certificates/Root-CA.crt
 RUN update-ca-certificates
 
+#SquidClamAV & C-ICAP Install
+# install clamav
+RUN apt-get -y install clamav
+RUN apt-get -y install clamav-daemon
+
+# install c-icap
+RUN apt-get -y install c-icap
+RUN apt-get -y install libicapapi-dev
+RUN mv /etc/c-icap/c-icap.conf /etc/c-icap/c-icap.conf.origineel
+ADD ./c-icap/c-icap.conf /etc/c-icap/c-icap.conf
+
+RUN mkdir /opt/sources/SquidClamAV
+RUN pushd /opt/sources/SquidClamAV
+RUN wget https://sourceforge.net/projects/squidclamav/files/squidclamav/7.1/squidclamav-7.1.tar.gz && gunzip squidclamav-7.1.tar.gz && tar -xvf squidclamav-7.1.tar.gz
+RUN cd squidclamav-7.1 && ./configure --with-c-icap=/usr && make
+RUN make install
+
+
 ###############
 #Squid Section#
 ###############
@@ -29,6 +47,7 @@ RUN apt-get update && apt-get install -y squid-common squid-openssl squidclient 
 #Configure Squid5
 RUN /usr/lib/squid/security_file_certgen -c -s /var/log/squid/ssl_db -M 40MB
 RUN chmod -R 777 /var/log/squid/
+RUN chmod -R 777 /var/cache/squid/
 RUN mv /etc/squid/squid.conf /etc/squid/squid.conf.origineel
 ADD ./squid/squid.conf /etc/squid/squid.conf
 RUN /usr/sbin/squid -z
@@ -36,7 +55,4 @@ RUN mkdir /opt/squid/
 ADD Squid-SUB-CA.crt /opt/squid/squid-ca-full.pem
 
 
-#C-ICAP Install
-RUN apt install c-icap -y
-RUN mv /etc/c-icap/c-icap.conf /etc/c-icap/c-icap.conf.origineel
-ADD ./c-icap/c-icap.conf /etc/c-icap/c-icap.conf
+
