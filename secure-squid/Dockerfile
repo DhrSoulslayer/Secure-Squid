@@ -32,6 +32,9 @@ RUN chmod -R 777 /var/log/squid/
 RUN mv /etc/squid/squid.conf /etc/squid/squid.conf.origineel
 ADD ./squid/squid.conf /etc/squid/squid.conf
 RUN /usr/sbin/squid -z
+RUN mkdir /opt/squid/
+ADD Squid-SUB-CA.crt /opt/squid/squid-ca-full.pem
+
 
 #C-ICAP Install
 RUN apt install c-icap -y
